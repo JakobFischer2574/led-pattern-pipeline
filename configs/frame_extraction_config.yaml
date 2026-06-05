@@ -1,0 +1,3 @@
+defaults:
+  frame_step: 20
+  image_format: jpg

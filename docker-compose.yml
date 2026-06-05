@@ -1,0 +1,10 @@
+services:
+  led-eval-cpu:
+    build:
+      context: .
+      dockerfile: docker/Dockerfile.cpu
+    volumes:
+      - /srv/led-eval/data:/data
+      - /srv/led-eval/models:/models
+      - /srv/led-eval/outputs:/outputs
+    command: ["python", "scripts/run_pipeline.py", "--config", "configs/server.yaml", "--method", "both"]

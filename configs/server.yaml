@@ -1,0 +1,15 @@
+run:
+  name: server_run
+data:
+  ground_truth_csv: /data/ground_truth.csv
+  video_dir: /data/videos
+  sampled_frames_dir: /data/sampled_frames
+outputs:
+  root: /outputs
+pipeline:
+  frame_step: 30
+classic_cv_config: configs/classic_cv_config.yaml
+yolo_config: configs/yolo_config.yaml
+led_layout: configs/led_layout.yaml
+temporal_config: configs/temporal_config.yaml
+error_codes_config: configs/error_codes.yaml

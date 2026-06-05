@@ -1,0 +1,94 @@
+preprocessing:
+  resize_width: null
+  blur_kernel_size: 5
+locator:
+  type: slot_based
+  search_region:
+    x_min_ratio: 0.05
+    x_max_ratio: 0.95
+    y_min_ratio: 0.34
+    y_max_ratio: 0.92
+  slot_band:
+    enabled: false
+    y_min_ratio: 0.45
+    y_max_ratio: 0.85
+    x_min_ratio: 0.0
+    x_max_ratio: 1.0
+  projection_detection:
+    enabled: false
+    dark_threshold: 90
+    vertical_close_kernel_width: 3
+    vertical_close_kernel_height: 11
+    opening_kernel_size: 3
+    min_peak_distance_px: 25
+    min_peak_prominence: 5
+    smoothing_window_px: 7
+  slot_detection:
+    max_area: 6500
+    max_width: 110
+    min_aspect_ratio: 1.15
+    dark_threshold: 60
+    min_area: 80
+    min_height: 10
+    morphology_kernel_size: 3
+  geometry:
+    expected_led_count: 5
+    max_y_deviation_px: 20
+    max_spacing_deviation_ratio: 0.25
+    min_candidates_for_reconstruction: 3
+  roi:
+    width: 40
+    height: 40
+    offset_x: 0
+    offset_y: -20
+    dynamic_size_enabled: true
+    width_factor: 3
+    height_factor: 1.5
+    min_width: 28
+    max_width: 80
+    min_height: 28
+    max_height: 80
+    offset_y_factor: -0.6
+  tracking:
+    enabled: true
+    max_tracking_fallback_frames: 5
+    fallback_confidence: 0.5
+  local_recovery:
+    enabled: true
+    min_candidates: 3
+    search_radius_x_factor: 0.45
+    search_radius_y_factor: 1.0
+    relaxed_dark_threshold_offset: 15
+    relaxed_min_area_factor: 0.5
+    relaxed_min_height_factor: 0.7
+    max_recovered_markers: 2
+segmentation:
+  use_combined_led_mask_for_classification: true
+  hsv_lower:
+    h: 35
+    s: 50
+    v: 80
+  hsv_upper:
+    h: 95
+    s: 255
+    v: 255
+  min_excess_green: 30
+  white_core:
+    max_saturation: 80
+    min_value: 230
+  white_core_adjacency:
+    dilate_kernel_size: 3
+    dilate_iterations: 1
+classification:
+  brightness_threshold: 200
+  min_mean_brightness: 160
+  min_max_brightness: 220
+  min_bright_pixel_ratio: 0.1
+  min_green_pixel_ratio: 0.08
+  min_max_green_score: 180
+  min_largest_green_component_area: 100
+  min_valid_white_core_area: 8
+  min_bright_max: 230
+  min_combined_component_area: 80
+debug:
+  save_debug_images: true
