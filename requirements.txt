@@ -1,0 +1,11 @@
+numpy
+opencv-python
+pandas
+psutil
+PyYAML
+scipy
+scikit-learn
+matplotlib
+
+# Optional fuer YOLO-Inferenz:
+# ultralytics

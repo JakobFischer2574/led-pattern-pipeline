@@ -1,0 +1,26 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "led-pattern-evaluation-pipeline"
+version = "0.1.0"
+description = "Modular evaluation pipeline for Classic CV and YOLO-based LED pattern recognition."
+requires-python = ">=3.10"
+dependencies = [
+  "numpy",
+  "opencv-python",
+  "pandas",
+  "psutil",
+  "PyYAML",
+  "scipy",
+  "scikit-learn",
+  "matplotlib",
+]
+
+[project.optional-dependencies]
+yolo = ["ultralytics"]
+dev = ["pytest"]
+
+[tool.setuptools.packages.find]
+where = ["src"]
