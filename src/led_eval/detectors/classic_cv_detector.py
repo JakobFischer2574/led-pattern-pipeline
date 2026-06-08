@@ -108,6 +108,7 @@ class ClassicCVDetector(BaseDetector):
                     "white_core_mask": white_core_mask,
                     "combined_led_mask": combined_led_mask,
                     "classification_mask_type": "combined" if use_combined_led_mask else "green",
+                    "confidence_type": "classification_confidence",
                     "confidence": float(conf),
                     "name": region.led_id,
                     "mean": float(features["mean_brightness"]),

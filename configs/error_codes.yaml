@@ -2,15 +2,15 @@ fehlercode_03:
   description: "Beispiel-Fehlercode 03"
   expected_pattern:
     led_1: "off"
-    led_2: "blink_slow"
-    led_3: "off"
-    led_4: "on"
+    led_2: "off"
+    led_3: "blink_fast"
+    led_4: "off"
     led_5: "on"
 fehlercode_07:
   description: "Beispiel-Fehlercode 07"
   expected_pattern:
-    led_1: "on"
+    led_1: "off"
     led_2: "off"
-    led_3: "blink_fast"
+    led_3: "blink_slow"
     led_4: "off"
     led_5: "on"

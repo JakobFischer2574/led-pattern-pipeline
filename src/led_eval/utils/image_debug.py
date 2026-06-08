@@ -177,7 +177,12 @@ def draw_detection_debug_image(
         state = int(state_raw) if isinstance(state_raw, (int, np.integer, float)) else -1
         state_str = "ON" if state == 1 else ("OFF" if state == 0 else "UNKNOWN")
         color = (0, 200, 0) if state == 1 else (0, 0, 220)
-        draw_text(f"{_format_value(led.get('led_id'))}: {state_str} conf={_format_value(led.get('confidence'))}", y0, color, 0.45); y0 += line_h
+        draw_text(
+            f"{_format_value(led.get('led_id'))}: {state_str} class_conf={_format_value(led.get('confidence'))}",
+            y0,
+            color,
+            0.45,
+        ); y0 += line_h
         draw_text(
             f"roi=({_format_value(led.get('x'))},{_format_value(led.get('y'))},{_format_value(led.get('width'))},{_format_value(led.get('height'))})",
             y0,

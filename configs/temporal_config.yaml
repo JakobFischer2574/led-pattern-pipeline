@@ -1,3 +1,3 @@
-rolling_majority_window: 5
-max_short_outlier_run: 1
-sampled_fps: 1.0
+rolling_majority_window: 3
+max_short_outlier_run: 0
+sampled_fps: 3.0

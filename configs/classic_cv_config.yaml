@@ -48,13 +48,13 @@ locator:
     max_width: 80
     min_height: 28
     max_height: 80
-    offset_y_factor: -0.6
+    offset_y_factor: -0.8
   tracking:
     enabled: true
     max_tracking_fallback_frames: 5
     fallback_confidence: 0.5
   local_recovery:
-    enabled: true
+    enabled: false
     min_candidates: 3
     search_radius_x_factor: 0.45
     search_radius_y_factor: 1.0
@@ -81,14 +81,15 @@ segmentation:
     dilate_iterations: 1
 classification:
   brightness_threshold: 200
-  min_mean_brightness: 160
-  min_max_brightness: 220
-  min_bright_pixel_ratio: 0.1
   min_green_pixel_ratio: 0.08
-  min_max_green_score: 180
-  min_largest_green_component_area: 100
-  min_valid_white_core_area: 8
-  min_bright_max: 230
+  min_max_green_score: 130
+  min_largest_green_component_area: 80
+
+  min_max_brightness: 220
+  min_bright_max: 240
+  min_bright_pixel_ratio: 0.05
+
+  min_valid_white_core_area: 40
   min_combined_component_area: 80
 debug:
   save_debug_images: true

@@ -77,6 +77,9 @@ def main() -> None:
         }
         for i, state in enumerate(result.led_state, start=1):
             row[f"led_{i}"] = state
+
+        for i, conf in enumerate(result.confidences, start=1):
+            row[f"conf_{i}"] = round(conf, 4)
         rows.append(row)
 
     out = Path(args.output_csv)

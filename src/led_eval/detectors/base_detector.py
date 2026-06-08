@@ -10,7 +10,7 @@ import numpy as np
 @dataclass
 class DetectionResult:
     led_state: list[int]
-    confidences: list[float]
+    confidences: list[float] # confidence of predicted class, not activation probability
     processing_time_ms: float
     locator_status: str = "ok"
     locator_confidence: float = 1.0

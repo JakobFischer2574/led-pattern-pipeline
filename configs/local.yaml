@@ -7,7 +7,7 @@ data:
 outputs:
   root: outputs
 pipeline:
-  frame_step: 30
+  frame_step: 10
 classic_cv_config: configs/classic_cv_config.yaml
 yolo_config: configs/yolo_config.yaml
 led_layout: configs/led_layout.yaml
