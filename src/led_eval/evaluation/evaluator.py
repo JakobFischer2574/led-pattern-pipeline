@@ -133,7 +133,6 @@ class PipelineEvaluator:
                 led_sequences[led_idx].append(int(state))
             frame_rows.append(self._frame_row(gt_row, method, frame_index, timestamp_ms, result))
 
-        total_runtime_s = now_seconds() - start_s
         frame_output = self.run_dir / "frame_results" / method / f"{Path(str(gt_row['file_name'])).stem}.csv"
         write_csv(frame_output, frame_rows, FRAME_COLUMNS)
 
@@ -148,6 +147,8 @@ class PipelineEvaluator:
             {"observed_pattern": observed, "predicted_error_code": predicted, "match_score": score},
         )
 
+        monitor.sample()
+        total_runtime_s = now_seconds() - start_s
         latencies = [float(row["processing_time_ms"]) for row in frame_rows]
         resource = monitor.summary()
         return {
