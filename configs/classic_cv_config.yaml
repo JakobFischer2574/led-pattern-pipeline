@@ -6,7 +6,7 @@ locator:
   search_region:
     x_min_ratio: 0.05
     x_max_ratio: 0.95
-    y_min_ratio: 0.34
+    y_min_ratio: 0.05
     y_max_ratio: 0.92
   slot_band:
     enabled: false
@@ -32,6 +32,7 @@ locator:
     min_height: 10
     morphology_kernel_size: 3
   geometry:
+    reconstruction_enabled: false
     expected_led_count: 5
     max_y_deviation_px: 20
     max_spacing_deviation_ratio: 0.25

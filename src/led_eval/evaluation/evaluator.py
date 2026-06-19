@@ -14,7 +14,7 @@ from led_eval.evaluation.latency import mean_latency_ms, p95_latency_ms
 from led_eval.evaluation.resource_monitor import ResourceMonitor, now_seconds
 from led_eval.evaluation.result_writer import FRAME_COLUMNS, VIDEO_COLUMNS, snapshot_configs, write_csv, write_json
 from led_eval.temporal.blink_detection import classify_video_pattern
-from led_eval.temporal.error_code_matching import match_error_code
+from led_eval.temporal.error_code_matching import match_error_code_with_scores
 from led_eval.temporal.smoothing import smooth_led_sequence
 from led_eval.utils.config_loader import load_yaml_config
 from led_eval.utils.path_utils import ensure_dir
@@ -51,8 +51,8 @@ class PipelineEvaluator:
             self.run_dir / "run_config_snapshot",
         )
 
-        for _, row in gt.iterrows():
-            for current_method in methods:
+        for current_method in methods:
+            for _, row in gt.iterrows():
                 try:
                     video_rows.append(self._process_video(row.to_dict(), current_method))
                 except (FileNotFoundError, ImportError, ValueError, RuntimeError) as exc:
@@ -80,6 +80,7 @@ class PipelineEvaluator:
                     "method": row["method"],
                     "mean_cpu_percent": row["mean_cpu_percent"],
                     "peak_ram_mb": row["peak_ram_mb"],
+                    "ram_increase_mb": row["ram_increase_mb"],
                 }
                 for row in video_rows
             ],
@@ -141,10 +142,21 @@ class PipelineEvaluator:
         fps = float(self.temporal_cfg.get("sampled_fps", 1.0))
         smoothed = [smooth_led_sequence(seq, smooth_window, max_outlier) for seq in led_sequences]
         observed = classify_video_pattern(smoothed, fps=fps)
-        predicted, score = match_error_code(observed, self.error_codes)
+        predicted, best_score, second_best_score, match_margin, true_error_code_score = match_error_code_with_scores(
+            observed,
+            self.error_codes,
+            true_error_code=str(gt_row["error_code"]),
+        )
         write_json(
             self.run_dir / "temporal_results" / f"{Path(str(gt_row['file_name'])).stem}_{method}.json",
-            {"observed_pattern": observed, "predicted_error_code": predicted, "match_score": score},
+            {
+                "observed_pattern": observed,
+                "predicted_error_code": predicted,
+                "best_match_score": best_score,
+                "second_best_match_score": second_best_score,
+                "match_margin": match_margin,
+                "true_error_code_score": true_error_code_score,
+            },
         )
 
         monitor.sample()
@@ -156,14 +168,24 @@ class PipelineEvaluator:
             "file_name": gt_row["file_name"],
             "environment": gt_row["environment"],
             "method": method,
+            "lighting": gt_row.get("lighting", ""),
+            "camera_position": gt_row.get("camera_position", ""),
+            "distance_cm": gt_row.get("distance_cm", ""),
+            "scenario": gt_row.get("scenario", ""),
+            "source_file": gt_row.get("source_file", ""),
             "true_error_code": gt_row["error_code"],
             "predicted_error_code": predicted,
+            "best_match_score": round(best_score, 3),
+            "second_best_match_score": round(second_best_score, 3),
+            "match_margin": round(match_margin, 3),
+            "true_error_code_score": round(true_error_code_score, 3) if true_error_code_score is not None else None,
             "correct": predicted == gt_row["error_code"],
             "mean_latency_ms": round(mean_latency_ms(latencies), 3),
             "p95_latency_ms": round(p95_latency_ms(latencies), 3),
             "total_runtime_s": round(total_runtime_s, 3),
             "mean_cpu_percent": round(resource["mean_cpu_percent"], 3),
             "peak_ram_mb": round(resource["peak_ram_mb"], 3),
+            "ram_increase_mb": round(resource["ram_increase_mb"], 3),
         }
 
     @staticmethod
@@ -187,13 +209,24 @@ class PipelineEvaluator:
             "video_id": gt_row.get("video_id"),
             "file_name": gt_row.get("file_name"),
             "environment": gt_row.get("environment"),
+            "lighting": gt_row.get("lighting", ""),
+            "camera_position": gt_row.get("camera_position", ""),
+            "distance_cm": gt_row.get("distance_cm", ""),
+            "scenario": gt_row.get("scenario", ""),
+            "source_file": gt_row.get("source_file", ""),
+
             "method": method,
             "true_error_code": gt_row.get("error_code"),
             "predicted_error_code": f"error: {exc}",
+            "best_match_score": 0.0,
+            "second_best_match_score": 0.0,
+            "match_margin": 0.0,
+            "true_error_code_score": 0.0,
             "correct": False,
             "mean_latency_ms": 0.0,
             "p95_latency_ms": 0.0,
             "total_runtime_s": 0.0,
             "mean_cpu_percent": 0.0,
             "peak_ram_mb": 0.0,
+            "ram_increase_mb": 0.0,
         }

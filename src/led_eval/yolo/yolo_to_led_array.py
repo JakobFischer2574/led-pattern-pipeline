@@ -61,13 +61,40 @@ def yolo_boxes_to_led_array(
     )[:expected_led_count]
     ordered_detections = sorted(selected_detections, key=_x_center_from_detection)
 
-    led_state = [int(detection["led_state"]) for detection in ordered_detections]
-    confidences = [_confidence_from_detection(detection) for detection in ordered_detections]
+    led_state: list[int] = []
+    confidences: list[float] = []
 
-    missing_count = expected_led_count - len(led_state)
-    if missing_count > 0:
-        led_state.extend([-1] * missing_count)
-        confidences.extend([0.0] * missing_count)
+    if not ordered_detections:
+        return [-1] * expected_led_count, [0.0] * expected_led_count, []
 
-    return led_state, confidences, ordered_detections
+    x_centers = [_x_center_from_detection(d) for d in ordered_detections]
 
+    if len(x_centers) >= 3 and len(ordered_detections) < expected_led_count:
+        gaps = [x_centers[i + 1] - x_centers[i] for i in range(len(x_centers) - 1)]
+        typical_gap = sorted(gaps)[len(gaps) // 2]
+
+        missing_remaining = expected_led_count - len(ordered_detections)
+
+        for i, detection in enumerate(ordered_detections):
+            led_state.append(int(detection["led_state"]))
+            confidences.append(_confidence_from_detection(detection))
+
+            if i < len(gaps):
+                gap = gaps[i]
+
+                if typical_gap > 0 and gap > typical_gap * 1.6 and missing_remaining > 0:
+                    missing_here = min(round(gap / typical_gap) - 1, missing_remaining)
+
+                    for _ in range(max(0, missing_here)):
+                        led_state.append(-1)
+                        confidences.append(0.0)
+                        missing_remaining -= 1
+    else:
+        led_state = [int(detection["led_state"]) for detection in ordered_detections]
+        confidences = [_confidence_from_detection(detection) for detection in ordered_detections]
+
+    while len(led_state) < expected_led_count:
+        led_state.append(-1)
+        confidences.append(0.0)
+
+    return led_state[:expected_led_count], confidences[:expected_led_count], ordered_detections

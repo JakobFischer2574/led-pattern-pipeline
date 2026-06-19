@@ -1,2 +1,6 @@
-video_id,file_name,error_code,environment,recorded_at,lighting,camera_position,distance_cm,notes
-1,video_003.mp4,fehlercode_03,labor,2026-06-05T12:00:00,constant,front,80,
+video_id,file_name,error_code,environment,recorded_at,lighting,camera_position,distance_cm,scenario
+1,video_001.mp4,fehlercode_08,labor,2026-06-05T12:00:00,constant,front,80,
+2,video_002.mp4,fehlercode_08,labor,2026-06-05T12:10:00,constant,front,80,
+3,video_003.mp4,fehlercode_08,labor,2026-06-05T12:20:00,constant,front,80,
+4,video_004.mp4,fehlercode_08,labor,2026-06-05T12:30:00,constant,front,80,
+5,video_005.mp4,fehlercode_09,labor,2026-06-05T12:40:00,constant,front,80,

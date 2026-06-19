@@ -224,7 +224,11 @@ class SlotBasedLEDLocator(BaseLEDLocator):
                 selected = sorted(selected, key=lambda c: c[0] + c[2] / 2.0)
 
         # geometric reconstruction for remaining missing markers (only positions)
-        if len(selected) >= int(self.geometry.get("min_candidates_for_reconstruction", 3)) and len(selected) < self.expected_led_count:
+        if (
+                bool(self.geometry.get("reconstruction_enabled", True))
+                and len(selected) >= int(self.geometry.get("min_candidates_for_reconstruction", 3))
+                and len(selected) < self.expected_led_count
+        ):
             centers = np.array([x + w / 2.0 for x, _, w, _ in selected], dtype=np.float32)
             y_centers = np.array([y + h / 2.0 for _, y, _, h in selected], dtype=np.float32)
             widths = np.array([w for _, _, w, _ in selected], dtype=np.float32)

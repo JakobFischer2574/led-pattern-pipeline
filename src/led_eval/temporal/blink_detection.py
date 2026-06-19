@@ -15,8 +15,8 @@ def classify_led_temporal_state(values: list[int], fps: float = 1.0) -> str:
         return "off"
     if transitions < 2:
         return "unknown"
-    if transition_rate >= 0.7:
-        return "blink_fast"
+    # if transition_rate >= 0.7: Im Rahmen der gennutzen Fehlercodes gibt es keine Fälle von "blink_fast" daher wird diese Unterscheidung vorerst nicht getroffen.
+    #     return "blink_fast"
     return "blink_slow"
 
 

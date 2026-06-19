@@ -1,16 +1,96 @@
-fehlercode_03:
-  description: "Beispiel-Fehlercode 03"
+fehlercode_01:
+  description: "Normalbetrieb: Gerät eingeschaltet, Internetverbindung aktiv, WLAN aktiv."
   expected_pattern:
-    led_1: "off"
-    led_2: "off"
-    led_3: "blink_fast"
+    led_1: "on"
+    led_2: "on"
+    led_3: "on"
     led_4: "off"
-    led_5: "on"
-fehlercode_07:
-  description: "Beispiel-Fehlercode 07"
+    led_5: "off"
+fehlercode_02:
+  description: "DSL-/Link-Synchronisation läuft oder Verbindung wird aufgebaut."
   expected_pattern:
-    led_1: "off"
-    led_2: "off"
+    led_1: "on"
+    led_2: "blink_slow"
+    led_3: "off"
+    led_4: "off"
+    led_5: "off"
+fehlercode_03:
+  description: "Internetverbindung aktiv, WLAN deaktiviert."
+  expected_pattern:
+    led_1: "on"
+    led_2: "on"
+    led_3: "off"
+    led_4: "off"
+    led_5: "off"
+fehlercode_04:
+  description: "WLAN wird aktiviert, deaktiviert oder Einstellungen werden übernommen."
+  expected_pattern:
+    led_1: "on"
+    led_2: "on"
     led_3: "blink_slow"
     led_4: "off"
-    led_5: "on"
+    led_5: "off"
+fehlercode_05:
+  description: "Telefonie/Fon aktiv."
+  expected_pattern:
+    led_1: "on"
+    led_2: "on"
+    led_3: "on"
+    led_4: "on"
+    led_5: "off"
+fehlercode_06:
+  description: "Telefonie-/Mailbox-Hinweis oder Telefonereignis."
+  expected_pattern:
+    led_1: "on"
+    led_2: "on"
+    led_3: "on"
+    led_4: "blink_slow"
+    led_5: "off"
+fehlercode_07:
+  description: "WPS-/Anmeldevorgang aktiv."
+  expected_pattern:
+    led_1: "on"
+    led_2: "on"
+    led_3: "blink_slow"
+    led_4: "blink_slow"
+    led_5: "off"
+fehlercode_08:
+  description: "Serviceprozess läuft, zum Beispiel Firmwareupdate oder Konfigurationsänderung."
+  expected_pattern:
+    led_1: "on"
+    led_2: "on"
+    led_3: "off"
+    led_4: "off"
+    led_5: "blink_slow"
+fehlercode_09:
+  description: "Hinweis- oder Informationsmeldung liegt vor."
+  expected_pattern:
+    led_1: "on"
+    led_2: "off"
+    led_3: "off"
+    led_4: "off"
+    led_5: "blink_slow"
+fehlercode_10:
+  description: "Internet-/Linkproblem bei weiterhin aktivem WLAN."
+  expected_pattern:
+    led_1: "on"
+    led_2: "blink_slow"
+    led_3: "on"
+    led_4: "off"
+    led_5: "off"
+fehlercode_11:
+  description: "Schwerer Geräte- oder Hardwarefehler: mehrere Funktions-LEDs blinken gleichzeitig."
+  expected_pattern:
+    led_1: "on"
+    led_2: "blink_slow"
+    led_3: "blink_slow"
+    led_4: "blink_slow"
+    led_5: "blink_slow"
+fehlercode_12:
+  description: "Allgemeiner Warnzustand: Internet/Link und Info blinken gleichzeitig."
+  expected_pattern:
+    led_1: "on"
+    led_2: "blink_slow"
+    led_3: "off"
+    led_4: "off"
+    led_5: "blink_slow"

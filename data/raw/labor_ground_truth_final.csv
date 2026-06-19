@@ -1,0 +1,169 @@
+video_id,file_name,error_code,environment,recorded_at,lighting,camera_position,distance_cm,scenario
+1,labor_001.mp4,fehlercode_01,labor,2026-06-10T14:45:19,,,,baseline/frontal
+2,labor_002.mp4,fehlercode_02,labor,2026-06-10T14:50:30,,,,baseline/frontal
+3,labor_003.mp4,fehlercode_03,labor,2026-06-10T14:51:01,,,,baseline/frontal
+4,labor_004.mp4,fehlercode_04,labor,2026-06-10T14:51:15,,,,baseline/frontal
+5,labor_005.mp4,fehlercode_05,labor,2026-06-10T14:51:55,,,,baseline/frontal
+6,labor_006.mp4,fehlercode_06,labor,2026-06-10T14:52:11,,,,baseline/frontal
+7,labor_007.mp4,fehlercode_07,labor,2026-06-10T14:52:29,,,,baseline/frontal
+8,labor_008.mp4,fehlercode_08,labor,2026-06-10T14:52:48,,,,baseline/frontal
+9,labor_009.mp4,fehlercode_09,labor,2026-06-10T14:53:02,,,,baseline/frontal
+10,labor_010.mp4,fehlercode_10,labor,2026-06-10T14:53:16,,,,baseline/frontal
+11,labor_011.mp4,fehlercode_11,labor,2026-06-10T14:53:32,,,,baseline/frontal
+12,labor_012.mp4,fehlercode_12,labor,2026-06-10T14:53:53,,,,baseline/frontal
+13,labor_013.mp4,fehlercode_01,labor,2026-06-10T14:54:13,,,,Links
+14,labor_014.mp4,fehlercode_02,labor,2026-06-10T14:55:29,,,,Links
+15,labor_015.mp4,fehlercode_03,labor,2026-06-10T14:55:45,,,,Links
+16,labor_016.mp4,fehlercode_04,labor,2026-06-10T14:56:22,,,,Links
+17,labor_017.mp4,fehlercode_05,labor,2026-06-10T14:56:55,,,,Links
+18,labor_018.mp4,fehlercode_06,labor,2026-06-10T14:57:13,,,,Links
+19,labor_019.mp4,fehlercode_07,labor,2026-06-10T14:57:33,,,,Links
+20,labor_020.mp4,fehlercode_08,labor,2026-06-10T14:57:55,,,,Links
+21,labor_021.mp4,fehlercode_09,labor,2026-06-10T14:58:12,,,,Links
+22,labor_022.mp4,fehlercode_10,labor,2026-06-10T14:58:40,,,,Links
+23,labor_023.mp4,fehlercode_11,labor,2026-06-10T14:59:03,,,,Links
+24,labor_024.mp4,fehlercode_12,labor,2026-06-10T14:59:23,,,,Links
+25,labor_025.mp4,fehlercode_01,labor,2026-06-10T14:59:38,,,,Rechts
+26,labor_026.mp4,fehlercode_02,labor,2026-06-10T15:02:36,,,,Rechts
+27,labor_027.mp4,fehlercode_03,labor,2026-06-10T15:02:51,,,,Rechts
+28,labor_028.mp4,fehlercode_04,labor,2026-06-10T15:03:00,,,,Rechts
+29,labor_029.mp4,fehlercode_05,labor,2026-06-10T15:03:10,,,,Rechts
+30,labor_030.mp4,fehlercode_06,labor,2026-06-10T15:04:12,,,,Rechts
+31,labor_031.mp4,fehlercode_07,labor,2026-06-10T15:04:26,,,,Rechts
+32,labor_032.mp4,fehlercode_08,labor,2026-06-10T15:04:37,,,,Rechts
+33,labor_033.mp4,fehlercode_09,labor,2026-06-10T15:04:52,,,,Rechts
+34,labor_034.mp4,fehlercode_10,labor,2026-06-10T15:05:30,,,,Rechts
+35,labor_035.mp4,fehlercode_11,labor,2026-06-10T15:05:43,,,,Rechts
+36,labor_036.mp4,fehlercode_12,labor,2026-06-10T15:05:54,,,,Rechts
+37,labor_037.mp4,fehlercode_01,labor,2026-06-10T15:06:46,,,,Entfernung
+38,labor_038.mp4,fehlercode_02,labor,2026-06-10T15:08:59,,,,Entfernung
+39,labor_039.mp4,fehlercode_03,labor,2026-06-10T15:09:08,,,,Entfernung
+40,labor_040.mp4,fehlercode_04,labor,2026-06-10T15:09:44,,,,Entfernung
+41,labor_041.mp4,fehlercode_05,labor,2026-06-10T15:09:54,,,,Entfernung
+42,labor_042.mp4,fehlercode_06,labor,2026-06-10T15:11:33,,,,Entfernung
+43,labor_043.mp4,fehlercode_07,labor,2026-06-10T15:12:06,,,,Entfernung
+44,labor_044.mp4,fehlercode_08,labor,2026-06-10T15:12:17,,,,Entfernung
+45,labor_045.mp4,fehlercode_09,labor,2026-06-10T15:12:41,,,,Entfernung
+46,labor_046.mp4,fehlercode_10,labor,2026-06-10T15:12:55,,,,Entfernung
+47,labor_047.mp4,fehlercode_11,labor,2026-06-10T15:13:04,,,,Entfernung
+48,labor_048.mp4,fehlercode_12,labor,2026-06-10T15:13:22,,,,Entfernung
+49,labor_049.mp4,fehlercode_01,labor,2026-06-10T15:13:50,,,,Nähe
+50,labor_050.mp4,fehlercode_02,labor,2026-06-10T15:26:33,,,,Nähe
+51,labor_051.mp4,fehlercode_03,labor,2026-06-10T15:26:44,,,,Nähe
+52,labor_052.mp4,fehlercode_04,labor,2026-06-10T15:27:02,,,,Nähe
+53,labor_053.mp4,fehlercode_05,labor,2026-06-10T15:27:47,,,,Nähe
+54,labor_054.mp4,fehlercode_06,labor,2026-06-10T15:27:57,,,,Nähe
+55,labor_055.mp4,fehlercode_07,labor,2026-06-10T15:28:12,,,,Nähe
+56,labor_056.mp4,fehlercode_08,labor,2026-06-10T15:28:32,,,,Nähe
+57,labor_057.mp4,fehlercode_09,labor,2026-06-10T15:28:45,,,,Nähe
+58,labor_058.mp4,fehlercode_10,labor,2026-06-10T15:28:56,,,,Nähe
+59,labor_059.mp4,fehlercode_11,labor,2026-06-10T15:29:09,,,,Nähe
+60,labor_060.mp4,fehlercode_12,labor,2026-06-10T15:29:29,,,,Nähe
+61,labor_061.mp4,fehlercode_01,labor,2026-06-10T15:29:44,,,,Hoch
+62,labor_062.mp4,fehlercode_02,labor,2026-06-10T15:31:24,,,,Hoch
+63,labor_063.mp4,fehlercode_03,labor,2026-06-10T15:31:44,,,,Hoch
+64,labor_064.mp4,fehlercode_04,labor,2026-06-10T15:31:56,,,,Hoch
+65,labor_065.mp4,fehlercode_05,labor,2026-06-10T15:32:21,,,,Hoch
+66,labor_066.mp4,fehlercode_06,labor,2026-06-10T15:32:31,,,,Hoch
+67,labor_067.mp4,fehlercode_07,labor,2026-06-10T15:32:45,,,,Hoch
+68,labor_068.mp4,fehlercode_08,labor,2026-06-10T15:32:56,,,,Hoch
+69,labor_069.mp4,fehlercode_09,labor,2026-06-10T15:33:22,,,,Hoch
+70,labor_070.mp4,fehlercode_10,labor,2026-06-10T15:33:40,,,,Hoch
+71,labor_071.mp4,fehlercode_11,labor,2026-06-10T15:33:50,,,,Hoch
+72,labor_072.mp4,fehlercode_12,labor,2026-06-10T15:34:04,,,,Hoch
+73,labor_073.mp4,fehlercode_01,labor,2026-06-10T15:34:19,,,,niedrig
+74,labor_074.mp4,fehlercode_02,labor,2026-06-10T15:44:45,,,,niedrig
+75,labor_075.mp4,fehlercode_03,labor,2026-06-10T15:45:01,,,,niedrig
+76,labor_076.mp4,fehlercode_04,labor,2026-06-10T15:45:15,,,,niedrig
+77,labor_077.mp4,fehlercode_05,labor,2026-06-10T15:45:29,,,,niedrig
+78,labor_078.mp4,fehlercode_06,labor,2026-06-10T15:45:44,,,,niedrig
+79,labor_079.mp4,fehlercode_07,labor,2026-06-10T15:45:59,,,,niedrig
+80,labor_080.mp4,fehlercode_08,labor,2026-06-10T15:46:14,,,,niedrig
+81,labor_081.mp4,fehlercode_09,labor,2026-06-10T15:46:46,,,,niedrig
+82,labor_082.mp4,fehlercode_10,labor,2026-06-10T15:47:28,,,,niedrig
+83,labor_083.mp4,fehlercode_11,labor,2026-06-10T15:47:41,,,,niedrig
+84,labor_084.mp4,fehlercode_12,labor,2026-06-10T15:47:54,,,,niedrig
+85,real_001.mp4,fehlercode_01,real,2026-06-10T15:48:07,,,,labor aus der Hand
+86,real_002.mp4,fehlercode_02,real,2026-06-10T15:59:10,,,,labor aus der Hand
+87,real_003.mp4,fehlercode_03,real,2026-06-10T15:59:30,,,,labor aus der Hand
+88,real_004.mp4,fehlercode_04,real,2026-06-10T15:59:53,,,,labor aus der Hand
+89,real_005.mp4,fehlercode_05,real,2026-06-10T16:00:10,,,,labor aus der Hand
+90,real_006.mp4,fehlercode_06,real,2026-06-10T16:00:36,,,,labor aus der Hand
+91,real_007.mp4,fehlercode_07,real,2026-06-10T16:00:59,,,,labor aus der Hand
+92,real_008.mp4,fehlercode_08,real,2026-06-10T16:01:14,,,,labor aus der Hand
+93,real_009.mp4,fehlercode_09,real,2026-06-10T16:01:39,,,,labor aus der Hand
+94,real_010.mp4,fehlercode_10,real,2026-06-10T16:01:55,,,,labor aus der Hand
+95,real_011.mp4,fehlercode_11,real,2026-06-10T16:02:28,,,,labor aus der Hand
+96,real_012.mp4,fehlercode_12,real,2026-06-10T16:02:31,,,,labor aus der Hand
+97,real_013.mp4,fehlercode_01,real,2026-06-10T16:02:51,,,,Auf meinem Schreibtische mit Kabeln
+98,real_014.mp4,fehlercode_02,real,2026-06-10T16:06:04,,,,Auf meinem Schreibtische mit Kabeln
+99,real_015.mp4,fehlercode_03,real,2026-06-10T16:06:29,,,,Auf meinem Schreibtische mit Kabeln
+100,real_016.mp4,fehlercode_04,real,2026-06-10T16:06:47,,,,Auf meinem Schreibtische mit Kabeln
+101,real_017.mp4,fehlercode_05,real,2026-06-10T16:07:07,,,,Auf meinem Schreibtische mit Kabeln
+102,real_018.mp4,fehlercode_06,real,2026-06-10T16:07:27,,,,Auf meinem Schreibtische mit Kabeln
+103,real_019.mp4,fehlercode_07,real,2026-06-10T16:07:59,,,,Auf meinem Schreibtische mit Kabeln
+104,real_020.mp4,fehlercode_08,real,2026-06-10T16:08:28,,,,Auf meinem Schreibtische mit Kabeln
+105,real_021.mp4,fehlercode_09,real,2026-06-10T16:08:46,,,,Auf meinem Schreibtische mit Kabeln
+106,real_022.mp4,fehlercode_10,real,2026-06-10T16:09:06,,,,Auf meinem Schreibtische mit Kabeln
+107,real_023.mp4,fehlercode_11,real,2026-06-10T16:09:35,,,,Auf meinem Schreibtische mit Kabeln
+108,real_024.mp4,fehlercode_12,real,2026-06-10T16:10:11,,,,Auf meinem Schreibtische mit Kabeln
+109,real_025.mp4,fehlercode_01,real,2026-06-10T16:10:34,,,,Schrank hinter dem Schreibtisch
+110,real_026.mp4,fehlercode_02,real,2026-06-10T16:15:32,,,,Schrank hinter dem Schreibtisch
+111,real_027.mp4,fehlercode_03,real,2026-06-10T16:15:55,,,,Schrank hinter dem Schreibtisch
+112,real_028.mp4,fehlercode_04,real,2026-06-10T16:16:31,,,,Schrank hinter dem Schreibtisch
+113,real_029.mp4,fehlercode_05,real,2026-06-10T16:17:29,,,,Schrank hinter dem Schreibtisch
+114,real_030.mp4,fehlercode_06,real,2026-06-10T16:17:54,,,,Schrank hinter dem Schreibtisch
+115,real_031.mp4,fehlercode_07,real,2026-06-10T16:18:18,,,,Schrank hinter dem Schreibtisch
+116,real_032.mp4,fehlercode_08,real,2026-06-10T16:18:36,,,,Schrank hinter dem Schreibtisch
+117,real_033.mp4,fehlercode_09,real,2026-06-10T16:18:55,,,,Schrank hinter dem Schreibtisch
+118,real_034.mp4,fehlercode_10,real,2026-06-10T16:20:20,,,,Schrank hinter dem Schreibtisch
+119,real_035.mp4,fehlercode_11,real,2026-06-10T16:20:41,,,,Schrank hinter dem Schreibtisch
+120,real_036.mp4,fehlercode_12,real,2026-06-10T16:21:29,,,,Schrank hinter dem Schreibtisch
+121,real_037.mp4,fehlercode_01,real,2026-06-10T16:21:55,,,,Tisch mit Bürohintergrund
+122,real_038.mp4,fehlercode_02,real,2026-06-10T16:29:24,,,,Tisch mit Bürohintergrund
+123,real_039.mp4,fehlercode_03,real,2026-06-10T16:33:30,,,,Tisch mit Bürohintergrund
+124,real_040.mp4,fehlercode_04,real,2026-06-10T16:34:06,,,,Tisch mit Bürohintergrund
+125,real_041.mp4,fehlercode_05,real,2026-06-10T16:34:48,,,,Tisch mit Bürohintergrund
+126,real_042.mp4,fehlercode_06,real,2026-06-10T16:35:09,,,,Tisch mit Bürohintergrund
+127,real_043.mp4,fehlercode_07,real,2026-06-10T16:35:30,,,,Tisch mit Bürohintergrund
+128,real_044.mp4,fehlercode_08,real,2026-06-10T16:35:56,,,,Tisch mit Bürohintergrund
+129,real_045.mp4,fehlercode_09,real,2026-06-10T16:36:26,,,,Tisch mit Bürohintergrund
+130,real_046.mp4,fehlercode_10,real,2026-06-10T16:36:59,,,,Tisch mit Bürohintergrund
+131,real_047.mp4,fehlercode_11,real,2026-06-10T16:37:39,,,,Tisch mit Bürohintergrund
+132,real_048.mp4,fehlercode_12,real,2026-06-10T16:37:55,,,,Tisch mit Bürohintergrund
+133,real_049.mp4,fehlercode_01,real,2026-06-10T16:38:10,,,,Vor Bürostrauch gegen Fensterscheibe
+134,real_050.mp4,fehlercode_02,real,2026-06-10T16:43:17,,,,Vor Bürostrauch gegen Fensterscheibe
+135,real_051.mp4,fehlercode_03,real,2026-06-10T16:43:38,,,,Vor Bürostrauch gegen Fensterscheibe
+136,real_052.mp4,fehlercode_04,real,2026-06-10T16:44:02,,,,Vor Bürostrauch gegen Fensterscheibe
+137,real_053.mp4,fehlercode_05,real,2026-06-10T16:44:19,,,,Vor Bürostrauch gegen Fensterscheibe
+138,real_054.mp4,fehlercode_06,real,2026-06-10T16:51:50,,,,Vor Bürostrauch gegen Fensterscheibe
+139,real_055.mp4,fehlercode_07,real,2026-06-10T16:52:58,,,,Vor Bürostrauch gegen Fensterscheibe
+140,real_056.mp4,fehlercode_08,real,2026-06-10T16:53:28,,,,Vor Bürostrauch gegen Fensterscheibe
+141,real_057.mp4,fehlercode_09,real,2026-06-10T16:54:07,,,,Vor Bürostrauch gegen Fensterscheibe
+142,real_058.mp4,fehlercode_10,real,2026-06-10T16:54:24,,,,Vor Bürostrauch gegen Fensterscheibe
+143,real_059.mp4,fehlercode_11,real,2026-06-10T16:54:43,,,,Vor Bürostrauch gegen Fensterscheibe
+144,real_060.mp4,fehlercode_12,real,2026-06-10T16:54:59,,,,Vor Bürostrauch gegen Fensterscheibe
+145,real_061.mp4,fehlercode_01,real,2026-06-10T16:55:25,,,,Vor BA Schrank
+146,real_062.mp4,fehlercode_02,real,2026-06-10T17:22:07,,,,Vor BA Schrank
+147,real_063.mp4,fehlercode_03,real,2026-06-10T17:22:43,,,,Vor BA Schrank
+148,real_064.mp4,fehlercode_04,real,2026-06-10T17:23:18,,,,Vor BA Schrank
+149,real_065.mp4,fehlercode_05,real,2026-06-10T17:23:57,,,,Vor BA Schrank
+150,real_066.mp4,fehlercode_06,real,2026-06-10T17:24:15,,,,Vor BA Schrank
+151,real_067.mp4,fehlercode_07,real,2026-06-10T17:25:02,,,,Vor BA Schrank
+152,real_068.mp4,fehlercode_08,real,2026-06-10T17:25:23,,,,Vor BA Schrank
+153,real_069.mp4,fehlercode_09,real,2026-06-10T17:25:50,,,,Vor BA Schrank
+154,real_070.mp4,fehlercode_10,real,2026-06-10T17:26:10,,,,Vor BA Schrank
+155,real_071.mp4,fehlercode_11,real,2026-06-10T17:27:26,,,,Vor BA Schrank
+156,real_072.mp4,fehlercode_12,real,2026-06-10T17:27:35,,,,Vor BA Schrank
+157,real_073.mp4,fehlercode_01,real,2026-06-10T17:28:53,,,,Tief in einem Schrank
+158,real_074.mp4,fehlercode_02,real,2026-06-10T17:33:54,,,,Tief in einem Schrank
+159,real_075.mp4,fehlercode_03,real,2026-06-10T17:34:15,,,,Tief in einem Schrank
+160,real_076.mp4,fehlercode_04,real,2026-06-10T17:34:32,,,,Tief in einem Schrank
+161,real_077.mp4,fehlercode_05,real,2026-06-10T17:34:53,,,,Tief in einem Schrank
+162,real_078.mp4,fehlercode_06,real,2026-06-10T17:35:10,,,,Tief in einem Schrank
+163,real_079.mp4,fehlercode_07,real,2026-06-10T17:35:28,,,,Tief in einem Schrank
+164,real_080.mp4,fehlercode_08,real,2026-06-10T17:35:50,,,,Tief in einem Schrank
+165,real_081.mp4,fehlercode_09,real,2026-06-10T17:36:07,,,,Tief in einem Schrank
+166,real_082.mp4,fehlercode_10,real,2026-06-10T17:36:27,,,,Tief in einem Schrank
+167,real_083.mp4,fehlercode_11,real,2026-06-10T17:36:45,,,,Tief in einem Schrank
+168,real_084.mp4,fehlercode_12,real,2026-06-10T17:37:07,,,,Tief in einem Schrank

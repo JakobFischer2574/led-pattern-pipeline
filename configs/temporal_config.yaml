@@ -1,3 +1,4 @@
 rolling_majority_window: 3
 max_short_outlier_run: 0
-sampled_fps: 3.0
+sampled_fps: 6.0
+min_match_score: 0.0
