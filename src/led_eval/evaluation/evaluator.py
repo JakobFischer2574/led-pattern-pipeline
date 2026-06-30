@@ -137,8 +137,8 @@ class PipelineEvaluator:
                 led_sequences[led_idx].append(int(state))
             frame_rows.append(self._frame_row(gt_row, method, frame_index, timestamp_ms, result))
 
-        # frame_output = self.run_dir / "frame_results" / method / f"{Path(str(gt_row['file_name'])).stem}.csv"
-        # write_csv(frame_output, frame_rows, FRAME_COLUMNS)
+        frame_output = self.run_dir / "frame_results" / method / f"{Path(str(gt_row['file_name'])).stem}.csv"
+        write_csv(frame_output, frame_rows, FRAME_COLUMNS)
 
         smooth_window = int(self.temporal_cfg.get("rolling_majority_window", 5))
         max_outlier = int(self.temporal_cfg.get("max_short_outlier_run", 1))
@@ -150,17 +150,17 @@ class PipelineEvaluator:
             self.error_codes,
             true_error_code=str(gt_row["error_code"]),
         )
-        # write_json(
-        #     self.run_dir / "temporal_results" / f"{Path(str(gt_row['file_name'])).stem}_{method}.json",
-        #     {
-        #         "observed_pattern": observed,
-        #         "predicted_error_code": predicted,
-        #         "best_match_score": best_score,
-        #         "second_best_match_score": second_best_score,
-        #         "match_margin": match_margin,
-        #         "true_error_code_score": true_error_code_score,
-        #     },
-        # )
+        write_json(
+            self.run_dir / "temporal_results" / f"{Path(str(gt_row['file_name'])).stem}_{method}.json",
+            {
+                "observed_pattern": observed,
+                "predicted_error_code": predicted,
+                "best_match_score": best_score,
+                "second_best_match_score": second_best_score,
+                "match_margin": match_margin,
+                "true_error_code_score": true_error_code_score,
+            },
+        )
 
         monitor.sample()
         total_runtime_s = now_seconds() - start_s
