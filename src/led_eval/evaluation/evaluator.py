@@ -112,6 +112,7 @@ class PipelineEvaluator:
         raise ValueError(f"Unbekannte Methode: {method}")
 
     def _process_video(self, gt_row: dict[str, Any], method: str) -> dict[str, Any]:
+        start_s = now_seconds()
         video_dir = Path(str(self.data_cfg.get("video_dir", "data/raw/videos")))
         sampled_root = Path(str(self.data_cfg.get("sampled_frames_dir", "data/sampled_frames")))
         frame_step = int(self.pipeline_cfg.get("frame_step", 30))
@@ -122,7 +123,6 @@ class PipelineEvaluator:
         detector = self._build_detector(method)
         monitor = ResourceMonitor()
         monitor.start()
-        start_s = now_seconds()
         frame_rows: list[dict[str, Any]] = []
         led_sequences = [[] for _ in range(5)]
 
@@ -164,9 +164,7 @@ class PipelineEvaluator:
 
         monitor.sample()
         total_runtime_s = now_seconds() - start_s
-
         processed_frame_count = len(frame_rows)
-
         runtime_per_processed_frame_ms = (
             (total_runtime_s * 1000) / processed_frame_count
             if processed_frame_count > 0
