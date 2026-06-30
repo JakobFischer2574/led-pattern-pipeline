@@ -6,6 +6,9 @@ import statistics
 def mean_latency_ms(values: list[float]) -> float:
     return float(statistics.fmean(values)) if values else 0.0
 
+def median_latency_ms(values: list[float]) -> float:
+    return float(statistics.median(values)) if values else 0.0
+
 
 def percentile(values: list[float], p: float) -> float:
     if not values:

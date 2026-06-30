@@ -21,26 +21,35 @@ VIDEO_COLUMNS = [
     "video_id",
     "file_name",
     "environment",
+    "method",
     "lighting",
     "camera_position",
     "distance_cm",
     "scenario",
     "source_file",
 
-    "method",
     "true_error_code",
     "predicted_error_code",
+    "correct",
+
     "best_match_score",
     "second_best_match_score",
     "match_margin",
     "true_error_code_score",
-    "correct",
+
     "mean_latency_ms",
     "p95_latency_ms",
+    "median_latency_ms",
     "total_runtime_s",
     "mean_cpu_percent",
+    "median_cpu_percent",
+    "peak_cpu_percent",
+    "mean_ram_mb",
+    "median_ram_mb",
     "peak_ram_mb",
     "ram_increase_mb",
+    "processed_frame_count",
+    "runtime_per_processed_frame_ms",
 
 ]
 

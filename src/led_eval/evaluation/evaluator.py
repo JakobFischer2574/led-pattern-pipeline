@@ -10,7 +10,7 @@ from led_eval.data.ground_truth_loader import load_ground_truth
 from led_eval.detectors.base_detector import BaseDetector
 from led_eval.detectors.classic_cv_detector import ClassicCVDetector
 from led_eval.detectors.yolo_detector import YOLODetector
-from led_eval.evaluation.latency import mean_latency_ms, p95_latency_ms
+from led_eval.evaluation.latency import mean_latency_ms, p95_latency_ms, median_latency_ms
 from led_eval.evaluation.resource_monitor import ResourceMonitor, now_seconds
 from led_eval.evaluation.result_writer import FRAME_COLUMNS, VIDEO_COLUMNS, snapshot_configs, write_csv, write_json
 from led_eval.temporal.blink_detection import classify_video_pattern
@@ -63,11 +63,13 @@ class PipelineEvaluator:
             self.run_dir / "latency_metrics.csv",
             [
                 {
-                    "video_id": row["video_id"],
-                    "method": row["method"],
-                    "mean_latency_ms": row["mean_latency_ms"],
-                    "p95_latency_ms": row["p95_latency_ms"],
-                    "total_runtime_s": row["total_runtime_s"],
+                        "video_id": row["video_id"],
+                        "method": row["method"],
+                        "mean_latency_ms": row["mean_latency_ms"],
+                        "p95_latency_ms": row["p95_latency_ms"],
+                        "processed_frame_count": row["processed_frame_count"],
+                        "total_runtime_s": row["total_runtime_s"],
+                        "runtime_per_processed_frame_ms": row["runtime_per_processed_frame_ms"],
                 }
                 for row in video_rows
             ],
@@ -79,6 +81,7 @@ class PipelineEvaluator:
                     "video_id": row["video_id"],
                     "method": row["method"],
                     "mean_cpu_percent": row["mean_cpu_percent"],
+                    "median_cpu_percent": row["median_cpu_percent"],
                     "peak_ram_mb": row["peak_ram_mb"],
                     "ram_increase_mb": row["ram_increase_mb"],
                 }
@@ -134,8 +137,8 @@ class PipelineEvaluator:
                 led_sequences[led_idx].append(int(state))
             frame_rows.append(self._frame_row(gt_row, method, frame_index, timestamp_ms, result))
 
-        frame_output = self.run_dir / "frame_results" / method / f"{Path(str(gt_row['file_name'])).stem}.csv"
-        write_csv(frame_output, frame_rows, FRAME_COLUMNS)
+        # frame_output = self.run_dir / "frame_results" / method / f"{Path(str(gt_row['file_name'])).stem}.csv"
+        # write_csv(frame_output, frame_rows, FRAME_COLUMNS)
 
         smooth_window = int(self.temporal_cfg.get("rolling_majority_window", 5))
         max_outlier = int(self.temporal_cfg.get("max_short_outlier_run", 1))
@@ -147,23 +150,33 @@ class PipelineEvaluator:
             self.error_codes,
             true_error_code=str(gt_row["error_code"]),
         )
-        write_json(
-            self.run_dir / "temporal_results" / f"{Path(str(gt_row['file_name'])).stem}_{method}.json",
-            {
-                "observed_pattern": observed,
-                "predicted_error_code": predicted,
-                "best_match_score": best_score,
-                "second_best_match_score": second_best_score,
-                "match_margin": match_margin,
-                "true_error_code_score": true_error_code_score,
-            },
-        )
+        # write_json(
+        #     self.run_dir / "temporal_results" / f"{Path(str(gt_row['file_name'])).stem}_{method}.json",
+        #     {
+        #         "observed_pattern": observed,
+        #         "predicted_error_code": predicted,
+        #         "best_match_score": best_score,
+        #         "second_best_match_score": second_best_score,
+        #         "match_margin": match_margin,
+        #         "true_error_code_score": true_error_code_score,
+        #     },
+        # )
 
         monitor.sample()
         total_runtime_s = now_seconds() - start_s
+
+        processed_frame_count = len(frame_rows)
+
+        runtime_per_processed_frame_ms = (
+            (total_runtime_s * 1000) / processed_frame_count
+            if processed_frame_count > 0
+            else 0.0
+        )
+
         latencies = [float(row["processing_time_ms"]) for row in frame_rows]
         resource = monitor.summary()
         return {
+            # Grundlegende Video- und Szeneninformationen
             "video_id": gt_row["video_id"],
             "file_name": gt_row["file_name"],
             "environment": gt_row["environment"],
@@ -173,19 +186,32 @@ class PipelineEvaluator:
             "distance_cm": gt_row.get("distance_cm", ""),
             "scenario": gt_row.get("scenario", ""),
             "source_file": gt_row.get("source_file", ""),
+
+            # Vorhersage
             "true_error_code": gt_row["error_code"],
             "predicted_error_code": predicted,
+            "correct": predicted == gt_row["error_code"],
+
+            # Scores
             "best_match_score": round(best_score, 3),
             "second_best_match_score": round(second_best_score, 3),
             "match_margin": round(match_margin, 3),
             "true_error_code_score": round(true_error_code_score, 3) if true_error_code_score is not None else None,
-            "correct": predicted == gt_row["error_code"],
+
+            # Latenz- und Ressourcenmetriken
             "mean_latency_ms": round(mean_latency_ms(latencies), 3),
             "p95_latency_ms": round(p95_latency_ms(latencies), 3),
+            "median_latency_ms": round(median_latency_ms(latencies), 3),
             "total_runtime_s": round(total_runtime_s, 3),
             "mean_cpu_percent": round(resource["mean_cpu_percent"], 3),
+            "median_cpu_percent": round(resource["median_cpu_percent"], 3),
+            "peak_cpu_percent": round(resource["peak_cpu_percent"], 3),
+            "mean_ram_mb": round(resource["mean_ram_mb"], 3),
+            "median_ram_mb": round(resource["median_ram_mb"], 3),
             "peak_ram_mb": round(resource["peak_ram_mb"], 3),
             "ram_increase_mb": round(resource["ram_increase_mb"], 3),
+            "processed_frame_count": processed_frame_count,
+            "runtime_per_processed_frame_ms": round(runtime_per_processed_frame_ms, 3),
         }
 
     @staticmethod
@@ -209,24 +235,33 @@ class PipelineEvaluator:
             "video_id": gt_row.get("video_id"),
             "file_name": gt_row.get("file_name"),
             "environment": gt_row.get("environment"),
+            "method": method,
             "lighting": gt_row.get("lighting", ""),
             "camera_position": gt_row.get("camera_position", ""),
             "distance_cm": gt_row.get("distance_cm", ""),
             "scenario": gt_row.get("scenario", ""),
             "source_file": gt_row.get("source_file", ""),
 
-            "method": method,
             "true_error_code": gt_row.get("error_code"),
             "predicted_error_code": f"error: {exc}",
+            "correct": False,
+
             "best_match_score": 0.0,
             "second_best_match_score": 0.0,
             "match_margin": 0.0,
             "true_error_code_score": 0.0,
-            "correct": False,
             "mean_latency_ms": 0.0,
             "p95_latency_ms": 0.0,
+            "median_latency_ms": 0.0,
             "total_runtime_s": 0.0,
             "mean_cpu_percent": 0.0,
+            "median_cpu_percent": 0.0,
+            "peak_cpu_percent": 0.0,
+            "mean_ram_mb": 0.0,
+            "median_ram_mb": 0.0,
             "peak_ram_mb": 0.0,
             "ram_increase_mb": 0.0,
+            "processed_frame_count": 0,
+            "runtime_per_processed_frame_ms": 0.0,
+
         }

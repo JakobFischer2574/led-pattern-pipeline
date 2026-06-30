@@ -3,6 +3,7 @@ from __future__ import annotations
 import os
 import time
 from dataclasses import dataclass, field
+from statistics import median
 
 import psutil
 
@@ -51,8 +52,14 @@ class ResourceMonitor:
 
         return {
             "mean_cpu_percent": sum(cpu_values) / len(cpu_values),
+            "median_cpu_percent": median(cpu_values),
+            "peak_cpu_percent": max(cpu_values),
+
+            "mean_ram_mb": sum(ram_values) / len(ram_values),
+            "median_ram_mb": median(ram_values),
             "peak_ram_mb": peak_ram_mb,
-            "ram_increase_mb": ram_increase_mb,
+            "ram_increase_mb": max(0.0, ram_increase_mb),
+
             "sample_count": float(len(self.snapshots)),
         }
 

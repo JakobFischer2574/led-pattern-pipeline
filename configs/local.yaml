@@ -1,5 +1,5 @@
 run:
-  name: final_evaluation_run
+  name: final_run
 data:
   ground_truth_csv: data/raw/labor_ground_truth_final.csv
   video_dir: data/raw/videos
