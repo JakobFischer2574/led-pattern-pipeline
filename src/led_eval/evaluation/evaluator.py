@@ -113,45 +113,105 @@ class PipelineEvaluator:
 
     def _process_video(self, gt_row: dict[str, Any], method: str) -> dict[str, Any]:
         start_s = now_seconds()
+
         video_dir = Path(str(self.data_cfg.get("video_dir", "data/raw/videos")))
-        sampled_root = Path(str(self.data_cfg.get("sampled_frames_dir", "data/sampled_frames")))
+        sampled_root = Path(
+            str(self.data_cfg.get("sampled_frames_dir", "data/sampled_frames"))
+        )
         frame_step = int(self.pipeline_cfg.get("frame_step", 30))
+
         video_path = video_dir / str(gt_row["file_name"])
         frame_dir = sampled_root / Path(str(gt_row["file_name"])).stem
+
+        # Gehört weiterhin zur Pipeline-Gesamtzeit.
         extract_every_nth_frame(video_path, frame_dir, step=frame_step)
 
         detector = self._build_detector(method)
         monitor = ResourceMonitor()
         monitor.start()
+
         frame_rows: list[dict[str, Any]] = []
         led_sequences = [[] for _ in range(5)]
 
-        for frame_index, frame_path in enumerate(sorted(p for p in frame_dir.iterdir() if p.suffix.lower() in IMAGE_SUFFIXES)):
+        frame_paths = sorted(
+            path for path in frame_dir.iterdir()
+            if path.suffix.lower() in IMAGE_SUFFIXES
+        )
+
+        for frame_index, frame_path in enumerate(frame_paths):
             frame = cv2.imread(str(frame_path))
             if frame is None:
                 continue
+
             result = detector.detect(frame)
             monitor.sample()
+
             timestamp_ms = frame_index * frame_step
+
             for led_idx, state in enumerate(result.led_state[:5]):
                 led_sequences[led_idx].append(int(state))
-            frame_rows.append(self._frame_row(gt_row, method, frame_index, timestamp_ms, result))
 
-        frame_output = self.run_dir / "frame_results" / method / f"{Path(str(gt_row['file_name'])).stem}.csv"
-        write_csv(frame_output, frame_rows, FRAME_COLUMNS)
+            frame_rows.append(
+                self._frame_row(
+                    gt_row,
+                    method,
+                    frame_index,
+                    timestamp_ms,
+                    result,
+                )
+            )
 
         smooth_window = int(self.temporal_cfg.get("rolling_majority_window", 5))
         max_outlier = int(self.temporal_cfg.get("max_short_outlier_run", 1))
         fps = float(self.temporal_cfg.get("sampled_fps", 1.0))
-        smoothed = [smooth_led_sequence(seq, smooth_window, max_outlier) for seq in led_sequences]
+
+        smoothed = [
+            smooth_led_sequence(sequence, smooth_window, max_outlier)
+            for sequence in led_sequences
+        ]
+
         observed = classify_video_pattern(smoothed, fps=fps)
-        predicted, best_score, second_best_score, match_margin, true_error_code_score = match_error_code_with_scores(
+
+        (
+            predicted,
+            best_score,
+            second_best_score,
+            match_margin,
+            true_error_code_score,
+        ) = match_error_code_with_scores(
             observed,
             self.error_codes,
             true_error_code=str(gt_row["error_code"]),
         )
+
+        # Ende der gemessenen Pipelinezeit:
+        # Ergebnisdateien werden bewusst erst danach geschrieben.
+        monitor.sample()
+        total_runtime_s = now_seconds() - start_s
+
+        processed_frame_count = len(frame_rows)
+        runtime_per_processed_frame_ms = (
+            (total_runtime_s * 1000) / processed_frame_count
+            if processed_frame_count > 0
+            else 0.0
+        )
+
+        latencies = [float(row["processing_time_ms"]) for row in frame_rows]
+        resource = monitor.summary()
+
+        # Nicht Teil von total_runtime_s bzw. runtime_per_processed_frame_ms.
+        frame_output = (
+                self.run_dir
+                / "frame_results"
+                / method
+                / f"{Path(str(gt_row['file_name'])).stem}.csv"
+        )
+        write_csv(frame_output, frame_rows, FRAME_COLUMNS)
+
         write_json(
-            self.run_dir / "temporal_results" / f"{Path(str(gt_row['file_name'])).stem}_{method}.json",
+            self.run_dir
+            / "temporal_results"
+            / f"{Path(str(gt_row['file_name'])).stem}_{method}.json",
             {
                 "observed_pattern": observed,
                 "predicted_error_code": predicted,
@@ -162,17 +222,6 @@ class PipelineEvaluator:
             },
         )
 
-        monitor.sample()
-        total_runtime_s = now_seconds() - start_s
-        processed_frame_count = len(frame_rows)
-        runtime_per_processed_frame_ms = (
-            (total_runtime_s * 1000) / processed_frame_count
-            if processed_frame_count > 0
-            else 0.0
-        )
-
-        latencies = [float(row["processing_time_ms"]) for row in frame_rows]
-        resource = monitor.summary()
         return {
             # Grundlegende Video- und Szeneninformationen
             "video_id": gt_row["video_id"],
@@ -194,7 +243,11 @@ class PipelineEvaluator:
             "best_match_score": round(best_score, 3),
             "second_best_match_score": round(second_best_score, 3),
             "match_margin": round(match_margin, 3),
-            "true_error_code_score": round(true_error_code_score, 3) if true_error_code_score is not None else None,
+            "true_error_code_score": (
+                round(true_error_code_score, 3)
+                if true_error_code_score is not None
+                else None
+            ),
 
             # Latenz- und Ressourcenmetriken
             "mean_latency_ms": round(mean_latency_ms(latencies), 3),
@@ -209,9 +262,11 @@ class PipelineEvaluator:
             "peak_ram_mb": round(resource["peak_ram_mb"], 3),
             "ram_increase_mb": round(resource["ram_increase_mb"], 3),
             "processed_frame_count": processed_frame_count,
-            "runtime_per_processed_frame_ms": round(runtime_per_processed_frame_ms, 3),
+            "runtime_per_processed_frame_ms": round(
+                runtime_per_processed_frame_ms,
+                3,
+            ),
         }
-
     @staticmethod
     def _frame_row(gt_row: dict[str, Any], method: str, frame_index: int, timestamp_ms: int, result: Any) -> dict[str, Any]:
         row = {
