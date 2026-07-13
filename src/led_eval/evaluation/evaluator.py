@@ -114,6 +114,9 @@ class PipelineEvaluator:
     def _process_video(self, gt_row: dict[str, Any], method: str) -> dict[str, Any]:
         start_s = now_seconds()
 
+        monitor = ResourceMonitor()
+        monitor.start()
+
         video_dir = Path(str(self.data_cfg.get("video_dir", "data/raw/videos")))
         sampled_root = Path(
             str(self.data_cfg.get("sampled_frames_dir", "data/sampled_frames"))
@@ -127,8 +130,6 @@ class PipelineEvaluator:
         extract_every_nth_frame(video_path, frame_dir, step=frame_step)
 
         detector = self._build_detector(method)
-        monitor = ResourceMonitor()
-        monitor.start()
 
         frame_rows: list[dict[str, Any]] = []
         led_sequences = [[] for _ in range(5)]
