@@ -20,7 +20,8 @@ dependencies = [
 
 [project.optional-dependencies]
 yolo = ["ultralytics"]
-dev = ["pytest"]
+demo = ["fastapi>=0.110", "uvicorn[standard]>=0.27", "pydantic>=2.5"]
+dev = ["pytest", "httpx"]
 
 [tool.setuptools.packages.find]
 where = ["src"]

@@ -61,6 +61,80 @@ Optional fuer YOLO:
 pip install ultralytics
 ```
 
+## Interactive Live Demo
+
+The presentation mode is a separate FastAPI application and React/TypeScript
+frontend. It imports the existing `ClassicCVDetector` and `YOLODetector`
+directly, uses their real `DetectionResult` (including confidence, latency,
+locator status and debug metadata), and passes the five per-frame state
+sequences through the existing smoothing, temporal classification and
+error-code matching functions. It does not invoke the evaluation CLI or use a
+second recognizer.
+
+### Install and build once
+
+Python 3.10+, Node.js 20+ and a camera supported by OpenCV are recommended:
+
+```bash
+python -m venv .venv
+source .venv/bin/activate                 # Windows: .venv\Scripts\activate
+pip install -e ".[demo]"                  # add ,yolo inside [] when YOLO is required
+cd frontend
+npm install
+npm run build
+cd ..
+```
+
+After this one-time build, the demo needs no internet connection. The frontend
+has no hosted fonts, images or runtime CDN dependencies.
+
+### Start the presentation
+
+```bash
+source .venv/bin/activate
+python scripts/run_demo.py
+```
+
+Open <http://127.0.0.1:8000>. The server serves the production React build and
+the API from the same address. For frontend development, run `npm run dev` in
+`frontend/` alongside `python scripts/run_demo.py --reload`; Vite forwards can
+instead be configured or requests can be made to port 8000.
+
+Select **Live Camera**, choose the device in **Analysis settings**, set capture
+duration and analysis FPS, and press **Start Analysis**. OpenCV captures one
+short sequence at the requested sampling rate. In **Compare Both**, that exact
+in-memory sequence is passed to both detectors. The UI polls typed job status;
+the displayed capture, detection, temporal and match stages are updated only
+when those backend operations actually occur. Detection views draw the ROI/slot
+or YOLO box metadata already returned by the selected detector.
+
+For a defense fallback, select **Video File** and choose an existing local video
+in the file picker. It is uploaded to `outputs/demo_uploads/`; frames are then
+sampled from that file and follow the identical detector and temporal-analysis
+path. No stored result is used.
+
+YOLO requires both the optional package and the model referenced by
+`configs/yolo_config.yaml`:
+
+```bash
+pip install -e ".[demo,yolo]"
+# place the trained file at models/yolo/yolo26n_1/best.pt,
+# or update model_path in configs/yolo_config.yaml
+```
+
+The UI disables YOLO and comparison mode when either requirement is missing.
+Classic CV remains available. If no camera is listed, reconnect it, close other
+applications using it, choose another index, and reload the page; video mode
+remains available. A camera disconnect, unreadable video, detector failure or
+backend exception produces a concise UI error while details are retained in the
+backend log. `unknown` LED states and Classic-CV locator failures are preserved.
+
+The demo keeps completed frames in backend memory (including JPEG thumbnails)
+for the lifetime of the process. Restart the server before a long series of
+presentations. Camera probing and simultaneous MJPEG preview/capture can depend
+on the operating-system camera driver; if a driver permits only one reader,
+use video fallback or close/reload the preview immediately before analysis.
+
 ## Ground Truth
 
 Die Ground-Truth-Datei ist eine CSV. Beispiel: `data/raw/ground_truth_example.csv`
